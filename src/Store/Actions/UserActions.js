@@ -14,7 +14,7 @@ const headersAuth = () => {
   };
 };
 
-export const getUser = (callback = () => { }) => (dispatch) => {
+export const getRecord = (callback = () => { }) => (dispatch) => {
   axios
     .get(`${apiUrl}posts`, headersAuth())
     .then((response) => {

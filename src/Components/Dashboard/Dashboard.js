@@ -9,6 +9,7 @@ import Row from 'react-bootstrap/Row';
 import CommonModal from "../Common/Modal";
 import * as actions from "../../Store/Actions";
 import { EditFilled } from "@ant-design/icons";
+import './Dashboard.css'
 
 const recordData = {
   name: '',
@@ -20,14 +21,17 @@ const recordData = {
 
 export const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [modalType, setModalType] = useState('')
+  // To handle the modal
   const [isOpen, setIsOpen] = useState(false)
+  const [modalType, setModalType] = useState('')
+
   const [isEdit, setIsEdit] = useState(false)
   const [values, setValue] = useState(recordData)
 
   const { name, email, schoolName, rewardPoint } = values;
 
   const dispatch = useDispatch();
+
   const { userData } = useSelector(
     (state) => ({
       userData: state.userReducer.userData,
@@ -35,8 +39,9 @@ export const Dashboard = () => {
     shallowEqual
   );
 
+  // To fetch the record
   const getRecordData = () => {
-    dispatch(actions.getUser(() => { setIsLoading(false) }));
+    dispatch(actions.getRecord(() => { setIsLoading(false) }));
   }
 
   useEffect(() => {
@@ -45,33 +50,48 @@ export const Dashboard = () => {
     return () => { };
   }, []);
 
+  // Convert the image file into base64
   const toBase64 = file => new Promise((resolve, reject) => {
-    console.log('file', file)
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
     reader.onerror = error => reject(error);
   });
 
+  // After success of post and put of record
+  const handleAfterSuccess = () => {
+    setIsLoading(false);
+    getRecordData();
+    setValue(recordData);
+    handleModal(false, '')
+  }
+
+  // Check if any property is empty in payload/object
+  const isEmpty = (obj) => Object.values(obj).some(value => {
+    if (value == null || value == undefined || value == '') {
+      return true;
+    }
+    return false;
+  });
+
   const handleSubmit = async () => {
-    setIsLoading(true)
-    if(isEdit){
-      dispatch(actions.updateRecord(values, () => { 
-        setIsLoading(false); 
-        getRecordData();
-        setValue(recordData);
-        handleModal(false, '')
-      }));  
+    if(isEmpty(values)){
+      alert('Please fill all the fields.')
       return;
     }
-    dispatch(actions.postRecord(values, () => { 
-      setIsLoading(false); 
-      getRecordData();
-      setValue(recordData);
-      handleModal(false, '')
+    setIsLoading(true)
+    if (isEdit) {
+      dispatch(actions.updateRecord(values, () => {
+        handleAfterSuccess()
+      }));
+      return;
+    }
+    dispatch(actions.postRecord(values, () => {
+      handleAfterSuccess();
     }));
   }
 
+  // Handler for image only
   const handleChangeImage = async (event) => {
     const { name } = event.target;
     const fileSize = Math.round((event.currentTarget.files[0].size / 1024))
@@ -81,16 +101,18 @@ export const Dashboard = () => {
     }
     const imgUrl = await toBase64(event.currentTarget.files[0])
     setValue({ ...values, [name]: imgUrl })
-
   }
+
+  // Handler for input fields
   const handleChange = async (event) => {
     const { name, value } = event.target;
     setValue({ ...values, [name]: value })
   }
+
   const getModal = () => {
     switch (modalType) {
       case 'addNewMember':
-        return <CommonModal title={isEdit ? "Edit Info" : "Add New Member"} show={isOpen} onClose={() => handleModal(false, '')} onDone={() => handleSubmit()}>
+        return <CommonModal title={isEdit ? "Edit Info" : "Add New Member"} show={isOpen} onClose={() => {setValue(recordData); handleModal(false, '')}} onDone={() => handleSubmit()}>
           <Container>
             <Form>
               <Row>
@@ -109,7 +131,6 @@ export const Dashboard = () => {
                       name="name"
                       value={name}
                       onChange={handleChange}
-                      autoFocus
                     />
                   </Form.Group>
                 </Col>
@@ -122,7 +143,6 @@ export const Dashboard = () => {
                       placeholder="name@example.com"
                       value={email}
                       onChange={handleChange}
-                      autoFocus
                     />
                   </Form.Group>
                 </Col>
@@ -137,7 +157,6 @@ export const Dashboard = () => {
                       placeholder="School Name"
                       value={schoolName}
                       onChange={handleChange}
-                      autoFocus
                     />
                   </Form.Group>
                 </Col>
@@ -150,7 +169,6 @@ export const Dashboard = () => {
                       placeholder="Reward Points"
                       value={rewardPoint}
                       onChange={handleChange}
-                      autoFocus
                     />
                   </Form.Group>
                 </Col>
@@ -163,8 +181,6 @@ export const Dashboard = () => {
         break;
     }
   }
-
-  console.log('values', values)
 
   const handleModal = (isOpen, modalType) => {
     setModalType(modalType);
@@ -189,15 +205,28 @@ export const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
+            {(userData && userData.length == 0) && <div>No Data Found</div>}
             {userData &&
               userData?.map((data) => (
                 <tr key={data?.id}>
-                  <td><img height="20" width="20" src={data.image} /></td>
-                  <td>{data.name}</td>
+                  <td>{data.id}</td>
+                  <td>
+                    <div className="profile-info">
+                      <div>
+                        <img height="50" width="50" src={data.image} />
+                      </div>
+                      <div>
+                        <div>{data.name}</div>
+                        <div>{data.email}</div>
+                        <div>{data.rewardPoint}</div>
+                      </div>
+                    </div>
+                  </td>
                   <td>{data.rewardPoint}</td>
                   <td><EditFilled onClick={() => { setValue({ ...values, ...data }); setIsEdit(true); handleModal(true, 'addNewMember') }} /></td>
                 </tr>
-              ))}
+              ))
+            }
           </tbody>
         </Table>
       </div>

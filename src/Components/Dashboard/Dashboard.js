@@ -218,7 +218,7 @@ export const Dashboard = () => {
                       <div>
                         <div>{data.name}</div>
                         <div>{data.email}</div>
-                        <div>{data.rewardPoint}</div>
+                        <div>{data.schoolName}</div>
                       </div>
                     </div>
                   </td>

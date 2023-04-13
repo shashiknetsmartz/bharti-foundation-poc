@@ -1,0 +1,14 @@
+footer {
+    background: #FC9317;
+    text-align: center;
+}
+
+footer p {
+    color: #fff;
+    font-size: 16px;
+    padding: 10px;
+}
+
+p.points {
+    padding-top: 5px;
+}

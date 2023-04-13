@@ -1,0 +1,14 @@
+.breadcrumb-bg {
+    background: #FFE99A;
+}
+
+.breadcrumb-bg p {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 16px;
+    color: #000;
+}
+
+.breadcrumb-bg p span {
+    font-weight: 700;
+}

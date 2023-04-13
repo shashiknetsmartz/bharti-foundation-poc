@@ -3,3 +3,286 @@
     grid-template-columns: 0fr 1fr;
     grid-gap: 20px;
 }
+
+section.Cards-tabs {
+    background-image: url(../../assets/images/card-bg.png);
+    border-radius: 10px;
+    width: 97%;
+    margin: 25px auto;
+    padding: 20px 20px 40px;
+}
+
+div#nav-tab {
+    justify-content: center;
+    padding: 25px 0;
+    border: 0;
+}
+
+#nav-tab .nav-link.active {
+    border: 2px solid #FC9317;
+    border-radius: 5px;
+    width: 177px;
+    text-align: center;
+    background: none;
+    font-size: 22px;
+    line-height: 22px;
+    justify-content: center;
+    color: #FC9317;
+    transform: scale(1.05);
+    margin: 0 8px;
+    font-weight: 700;
+}
+
+#nav-tab .nav-link {
+    width: 160px;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    border-radius: 5px;
+    margin: 0 5px;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: 700;
+}
+
+.card-outer {
+    background: #fff;
+    border-radius: 15px;
+    padding: 40px 10px;
+    text-align: center;
+    position: relative;
+}
+
+.badge {
+    position: absolute;
+    right: -40PX;
+    top: -60PX;
+}
+
+.card-content h3 {
+    font-size: 28px;
+    font-family: 'Architects Daughter', cursive;
+    -webkit-text-stroke: 1px black;
+}
+
+.card-content p {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 22px;
+    color: rgba(0, 0, 0, 0.6);
+    margin: 0 0 13px;
+}
+
+.card-outer.first {
+    transform: scaleY(1.08);
+    position: relative;
+    top: -9px;
+}
+
+.first .profile-pic img,
+.first .card-content,
+.first .badge {
+    transform: scaleY(0.92);
+}
+
+div#myTabContent {
+    margin-top: 70px;
+}
+
+.card-content p span {
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 30px;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding-right: 5px;
+}
+
+.cm-badge {
+    font-size: 40px;
+    font-weight: 700;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    background: #f8a72d;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    color: #fff;
+    border-radius: 50%;
+    box-shadow: 4px 4px 12px 5px #00000021;
+}
+
+.cm-badge::before {
+    position: absolute;
+    content: "";
+    width: 80px;
+    height: 80px;
+    right: -11px;
+    top: -11px;
+    border: 4px solid #f8a72d;
+    border-radius: 50%;
+    box-shadow: 4px 4px 12px 5px #00000021;
+}
+
+button#nav-tab-add {
+    background: #FC9317;
+    border-radius: 3px;
+    border: 0;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 700;
+    padding: 0;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.card-content p .edit-info {
+    color: #FC9317;
+    padding-left: 8px;
+}
+.card-content p .edit-info i {
+    font-size: 16px;
+}
+button#nav-tab-add i {
+    font-size: 16px;
+    position: relative;
+    top: -5px;
+}
+.image-upload>input {
+    opacity: 0;
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 52%;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.image-upload>label {
+    display: block;
+}
+
+.image-upload {
+    text-align: center;
+    border: 2px dashed #FC9317;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.image-upload p , .image-upload h6{margin:0; padding: 0px 0;}
+.modal-dialog {
+    width: 100% !important;
+    max-width: 650px;
+}
+.modal-header .btn-primary {
+    position: absolute;
+    right: -20px;
+    top: -17px;
+    font-size: 20px;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border-radius: 50%;
+    background: #dedede;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+}
+input {
+    height: 45px;
+    border-radius: 3px;
+}
+.modal-title.h4 {
+    font-size: 18px;
+}
+input::placeholder{font-family: 'Assistant', sans-serif;}
+label.form-label {
+    margin-bottom: 3px;
+    font-family: 'Assistant', sans-serif;
+}
+.btn-close{display: none;}
+
+@media(min-width:991px) and (max-width:1500px) {
+    .navbar .nav-link {
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    .navbar .nav-link img {
+        width: 100%;
+        max-width: 30px;
+    }
+
+    .notification img {
+        width: 100%;
+        max-width: 45px;
+    }
+
+    #level-dropdown,
+    .navbar .dropdown-menu li a {
+        font-size: 14px;
+    }
+
+    .navbar .dropdown-menu li {
+        padding: 6px 14px;
+    }
+
+    #nav-tab .nav-link.active,
+    #nav-tab .nav-link {
+        font-size: 17px;
+    }
+
+    .badge img {
+        width: 100%;
+        max-width: 60%;
+    }
+
+    .badge {
+        position: absolute;
+        right: -50PX;
+        top: -30PX;
+    }
+
+    .card-outer {
+        padding: 15px 10px;
+    }
+
+    .card-content p {
+        font-size: 14px;
+        line-height: 16px;
+        margin: 0 0 5px;
+    }
+
+    .profile-pic img {
+        width: 100%;
+        max-width: 120px;
+    }
+
+    .cm-badge {
+        font-size: 22px;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .cm-badge::before {
+        width: 60px;
+        height: 60px;
+    }
+
+    div#myTabContent {
+        margin-top: 30px;
+    }
+
+    .card-content h3 {
+        font-size: 20px;
+        line-height: 22px;
+    }
+}

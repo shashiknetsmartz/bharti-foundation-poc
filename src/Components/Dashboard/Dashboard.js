@@ -8,12 +8,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import CommonModal from "../Common/Modal";
 import * as actions from "../../Store/Actions";
-import { EditFilled } from "@ant-design/icons";
-import VerifyImg from '../../assets/images/verify.svg'
-import ProfileImg from '../../assets/images/profile.svg'
-import SecondImg from '../../assets/images/second.svg'
-import FirstImg from '../../assets/images/first.svg'
-import ThirdImg from '../../assets/images/third.svg'
 import dropDownImg from '../../assets/images/dropDownImage.svg'
 
 import './Dashboard.css'
@@ -24,8 +18,57 @@ const recordData = {
   email: '',
   schoolName: '',
   rewardPoint: '',
-  image: ''
+  image: '',
+  location: ''
 }
+
+const defaultData = [
+  {
+    "name": "Rambo",
+    "email": "rambo@gmail.com",
+    "schoolName": "Delhi Public school, delhi.",
+    "rewardPoint": "1200",
+    "id": 1,
+    "image": "",
+    "location": "piunjab,india"
+  },
+  {
+    "name": "Sahil",
+    "email": "sahil@gmail.com",
+    "schoolName": "Delhi Public school, delhi.",
+    "rewardPoint": "2345",
+    "id": 2,
+    "image": "",
+    "location": "piunjab,india"
+  },
+  {
+    "name": "Rohan",
+    "email": "rohan@gmail.com",
+    "schoolName": "Delhi Public school, delhi.",
+    "rewardPoint": "5678",
+    "id": 3,
+    "image": "",
+    "location": "piunjab,india"
+  },
+  {
+    "name": "Mohan",
+    "email": "mohan@gmail.com",
+    "schoolName": "Delhi Public school, delhi.",
+    "rewardPoint": "9000",
+    "id": 4,
+    "image": "",
+    "location": "piunjab,india"
+  },
+  {
+    "name": "Prince",
+    "email": "prince@gmail.com",
+    "schoolName": "Delhi Public school, delhi.",
+    "rewardPoint": "9000",
+    "id": 5,
+    "image": "",
+    "location": "piunjab,india"
+  }
+]
 
 export const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,19 +76,22 @@ export const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [modalType, setModalType] = useState('')
 
+  const [selectedId, setSelectedId] = useState('')
   const [isEdit, setIsEdit] = useState(false)
   const [values, setValue] = useState(recordData)
 
-  const { name, email, schoolName, rewardPoint } = values;
+  const { name, email, schoolName, rewardPoint, location } = values;
 
   const dispatch = useDispatch();
 
-  const { userData } = useSelector(
+  const { userData1 } = useSelector(
     (state) => ({
       userData: state.userReducer.userData,
     }),
     shallowEqual
   );
+
+  const userData = JSON.parse(localStorage.getItem('data'))
 
   // To fetch the record
   const getRecordData = () => {
@@ -53,8 +99,13 @@ export const Dashboard = () => {
   }
 
   useEffect(() => {
-    setIsLoading(true)
-    getRecordData();
+    // setIsLoading(true)
+    // getRecordData();
+    if(JSON.parse(localStorage.getItem('data'))?.length > 0){
+      localStorage.setItem('data',localStorage.getItem('data'))
+      return;
+    }
+    localStorage.setItem('data',JSON.stringify(defaultData))
     return () => { };
   }, []);
 
@@ -83,20 +134,33 @@ export const Dashboard = () => {
   });
 
   const handleSubmit = async () => {
-    if (isEmpty(values)) {
-      alert('Please fill all the fields.')
-      return;
-    }
-    setIsLoading(true)
+    // if (isEmpty(values)) {
+    //   alert('Please fill all the fields.')
+    //   return;
+    // }
+    // setIsLoading(true)
     if (isEdit) {
-      dispatch(actions.updateRecord(values, () => {
-        handleAfterSuccess()
-      }));
+      // dispatch(actions.updateRecord(values, () => {
+      //   handleAfterSuccess()
+      // }));
+      const updateData = [...JSON.parse(localStorage.getItem('data'))].map(item => {
+        if(item.id == selectedId){
+          return {...item, ...values}
+        }
+        return item;
+      })
+      const updateLS = [...JSON.parse(localStorage.getItem('data')), {...values, id: userData?.length + 1}]
+      localStorage.setItem('data',JSON.stringify(updateData))
+      setIsEdit(false)
+      handleAfterSuccess();
       return;
     }
-    dispatch(actions.postRecord(values, () => {
-      handleAfterSuccess();
-    }));
+    const updateLS = [...JSON.parse(localStorage.getItem('data')), {...values, id: userData?.length + 1}]
+    localStorage.setItem('data',JSON.stringify(updateLS))
+    handleAfterSuccess();
+    // dispatch(actions.postRecord(values, () => {
+    //   handleAfterSuccess();
+    // }));
   }
 
   // Handler for image only
@@ -189,6 +253,20 @@ export const Dashboard = () => {
                   </Form.Group>
                 </Col>
               </Row>
+              <Row>
+                <Col xs={6} md={6}>
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Location</Form.Label>
+                    <Form.Control
+                      name="location"
+                      type="text"
+                      placeholder="Location"
+                      value={location}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
             </Form>
           </Container>
         </CommonModal>
@@ -217,13 +295,13 @@ export const Dashboard = () => {
             </div>
             <div className="tab-content" id="myTabContent">
               <div className="tab-pane fade show active" id="tabs-1" role="tabpanel" aria-labelledby="tabs-tab1">
-                <TabsData userData={userData} onOpenEditModal={(data) => { setValue({ ...values, ...data }); setIsEdit(true); handleModal(true, 'addNewMember') }}/>
+                <TabsData userData={userData} onOpenEditModal={(data) => { setValue({ ...values, ...data }); setSelectedId(data.id); setIsEdit(true); handleModal(true, 'addNewMember') }} />
               </div>
               <div className="tab-pane fade" id="tabs-2" role="tabpanel" aria-labelledby="tabs-2">
-                <TabsData userData={userData} onOpenEditModal={(data) => { setValue({ ...values, ...data }); setIsEdit(true); handleModal(true, 'addNewMember') }}/>
+                <TabsData userData={userData} onOpenEditModal={(data) => { setValue({ ...values, ...data }); setSelectedId(data.id); setIsEdit(true); handleModal(true, 'addNewMember') }} />
               </div>
               <div className="tab-pane fade" id="tabs-3" role="tabpanel" aria-labelledby="tabs-3">
-                <TabsData userData={userData} onOpenEditModal={(data) => { setValue({ ...values, ...data }); setIsEdit(true); handleModal(true, 'addNewMember') }}/>
+                <TabsData userData={userData} onOpenEditModal={(data) => { setValue({ ...values, ...data }); setSelectedId(data.id); setIsEdit(true); handleModal(true, 'addNewMember') }} />
               </div>
             </div>
           </div>

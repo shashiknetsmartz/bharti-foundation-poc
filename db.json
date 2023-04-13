@@ -6,64 +6,35 @@
       "schoolName": "Delhi Public school, delhi.",
       "rewardPoint": "1200",
       "id": 1,
-      "image": ""
-    },    
+      "image": "",
+      "location": "piunjab,india"
+    },
     {
       "name": "Sahil",
       "email": "sahil@gmail.com",
       "schoolName": "Delhi Public school, delhi.",
       "rewardPoint": "2345",
       "id": 2,
-      "image": ""
-    },    
+      "image": "",
+      "location": "piunjab,india"
+    },
     {
       "name": "Rohan",
       "email": "rohan@gmail.com",
       "schoolName": "Delhi Public school, delhi.",
       "rewardPoint": "5678",
       "id": 3,
-      "image": ""
-    },    
+      "image": "",
+      "location": "piunjab,india"
+    },
     {
       "name": "Mohan",
       "email": "mohan@gmail.com",
       "schoolName": "Delhi Public school, delhi.",
       "rewardPoint": "9000",
       "id": 4,
-      "image": ""
-    },    
-    {
-      "name": "Shaam",
-      "email": "shaam@gmail.com",
-      "schoolName": "Delhi Public school, delhi.",
-      "rewardPoint": "1200",
-      "id": 5,
-      "image": ""
-    },    
-    {
-      "name": "Prince",
-      "email": "princ@gmai.com",
-      "schoolName": "Delhi Public school, delhi.",
-      "rewardPoint": "3000",
-      "id": 6,
-      "image": ""
-    },    
-    {
-      "name": "Ankush",
-      "email": "ankush@gmail.com",
-      "schoolName": "Delhi Public school, delhi.",
-      "rewardPoint": "7000",
-      "id": 7,
-      "image": ""
-    },    
-    
-    {
-      "name": "Amit",
-      "email": "amit@gmail.com",
-      "schoolName": "Delhi Public school, delhi.",
-      "rewardPoint": "1000",
-      "id": 8,
-      "image": ""
+      "image": "",
+      "location": "piunjab,india"
     }
   ],
   "comments": [

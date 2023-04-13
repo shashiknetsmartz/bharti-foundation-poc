@@ -1,20 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { Button } from "react-bootstrap";
-import Table from "react-bootstrap/Table";
-import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import CommonModal from "../Common/Modal";
-import * as actions from "../../Store/Actions";
-import { EditFilled } from "@ant-design/icons";
+import React from "react";
 import VerifyImg from '../../assets/images/verify.svg'
 import ProfileImg from '../../assets/images/profile.svg'
 import SecondImg from '../../assets/images/second.svg'
 import FirstImg from '../../assets/images/first.svg'
 import ThirdImg from '../../assets/images/third.svg'
-import dropDownImg from '../../assets/images/dropDownImage.svg'
 
 import './Dashboard.css'
 
@@ -35,7 +24,7 @@ export const TabsData = ({ onOpenEditModal, userData }) => {
                                 <div className="card-content">
                                     <h3 className="mb-0">{data.name}<img src={VerifyImg} alt="verify" /></h3>
                                     <p>{data.email}</p>
-                                    <p>{data.schoolName}</p>
+                                    <p>{data.location || ''}</p>
                                     <p className="points">
                                         <span>{data.rewardPoint}</span>points<span onClick={() => onOpenEditModal(data)} className="edit-info"><i className="fa fa-pencil" aria-hidden="true"></i></span></p>
                                 </div>
@@ -51,7 +40,7 @@ export const TabsData = ({ onOpenEditModal, userData }) => {
             </div>
             <div className="row justify-content-center">
                 {userData &&
-                    userData?.map((data) => (
+                    userData?.slice(3)?.map((data) => (
                         <div className="col-md-2 col-sm-3 mb-5" key={data?.id}>
                             <div className="card-outer">
                                 <div className="profile-pic">
@@ -60,7 +49,7 @@ export const TabsData = ({ onOpenEditModal, userData }) => {
                                 <div className="card-content">
                                     <h3 className="mb-0">{data.name}<img src={VerifyImg} alt="verify" /></h3>
                                     <p>{data.email}</p>
-                                    <p>{data.schoolName}</p>
+                                    <p>{data.location || ''}</p>
                                     <p className="points">
                                         <span>{data.rewardPoint}</span>points<span onClick={() => onOpenEditModal(data)} className="edit-info"><i className="fa fa-pencil" aria-hidden="true"></i></span></p>
                                 </div>

@@ -3,8 +3,8 @@ import { notification } from "antd";
 import { userConstants } from "../Constants/UserConstants";
 import { apiUrl } from "../../Helpers/config";
 
-const apiSuccessNew = (response) => notification['success']({ description: response?.message || 'Success!' });
-const apiErrorNew = (err) => notification['error']({ description: err?.message || 'Something is wrong!' });
+// const apiSuccessNew = (response) => notification['success']({ description: response?.message || 'Success!' });
+// const apiErrorNew = (err) => notification['error']({ description: err?.message || 'Something is wrong!' });
 
 const headersAuth = () => {
   return {
@@ -20,11 +20,11 @@ export const getRecord = (callback = () => { }) => (dispatch) => {
     .then((response) => {
       callback()
       dispatch({ type: userConstants.USERS, data: response.data })
-      apiSuccessNew(response.data.data);
+      // apiSuccessNew(response.data.data);
     })
     .catch((err) => {
       callback()
-      apiErrorNew(err.response.data)
+      // apiErrorNew(err.response.data)
     });
 };
 
@@ -33,11 +33,11 @@ export const postRecord = (payload, callback = () => { }) => (dispatch) => {
     .post(`${apiUrl}posts`, payload, headersAuth())
     .then((response) => {
       callback()
-      apiSuccessNew(response.data.data);
+      // apiSuccessNew(response.data.data);
     })
     .catch((err) => {
       callback()
-      apiErrorNew(err.response.data)
+      // apiErrorNew(err.response.data)
     });
 };
 
@@ -46,10 +46,10 @@ export const updateRecord = (payload, callback = () => { }) => (dispatch) => {
     .put(`${apiUrl}posts/${payload.id}`, payload, headersAuth())
     .then((response) => {
       callback()
-      apiSuccessNew(response.data.data);
+      // apiSuccessNew(response.data.data);
     })
     .catch((err) => {
       callback()
-      apiErrorNew(err.response.data)
+      // apiErrorNew(err.response.data)
     });
 };

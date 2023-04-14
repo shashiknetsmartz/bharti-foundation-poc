@@ -1,5 +1,5 @@
 import { InboxOutlined } from '@ant-design/icons';
-import { message, Upload } from 'antd';
+import { message, Upload, notification } from 'antd';
 
 import dropDownImg from '../../assets/images/dropDownImage.svg'
 const { Dragger } = Upload;
@@ -13,9 +13,9 @@ const props = {
             console.log(info.file, info.fileList);
         }
         if (status === 'done') {
-            message.success(`${info.file.name} file uploaded successfully.`);
         } else if (status === 'error') {
-            message.error(`${info.file.name} file upload failed.`);
+            notification['success']({description: `${info.file.name} file uploaded successfully.`})
+            // message.error(`${info.file.name} file upload failed.`);
         }
     },
     onDrop(e) {

@@ -120,7 +120,6 @@ export const Dashboard = () => {
   // After success of post and put of record
   const handleAfterSuccess = () => {
     setIsLoading(false);
-    getRecordData();
     setValue(recordData);
     handleModal(false, '')
     setErrors('')
@@ -143,7 +142,6 @@ export const Dashboard = () => {
     return isValid;
   };
 
-  console.log('errors', errors)
   const handleSubmit = async () => {
     if (!isValid(values)) {
       return;

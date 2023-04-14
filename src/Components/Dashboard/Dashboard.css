@@ -228,6 +228,23 @@ label.form-label {
     border: 2px dashed #FC9317 !important;
     border-radius: 15px !important;
 }
+.ant-upload-list-item-info {
+    display: none;
+}
+.ant-notification {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    font-feature-settings: 'tnum', "tnum";
+    position: fixed;
+    z-index: 9999 !important;
+    margin-right: 24px;
+}
 @media(min-width:991px) and (max-width:1500px) {
     .navbar .nav-link {
         font-size: 14px;

@@ -21,9 +21,8 @@ export const validateAddCompanyInputs = (data) => {
     if (Validator.isEmpty(data.location)) {
         errors.location = "Location is required";
     }
-
-    if (Validator.isAlphanumeric(data.location)) {
-        errors.location = "Location must be alphanumeric";
+    if (Validator.isEmpty(data.location)) {
+        errors.location = "Location is required";
     }
     return {
         errors,

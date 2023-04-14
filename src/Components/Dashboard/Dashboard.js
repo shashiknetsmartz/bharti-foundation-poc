@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { Button } from "react-bootstrap";
-import Table from "react-bootstrap/Table";
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+
+import { validateAddCompanyInputs } from "../../Helpers/FormValidations/AddRecordValidations";
 import CommonModal from "../Common/Modal";
 import * as actions from "../../Store/Actions";
 import dropDownImg from '../../assets/images/dropDownImage.svg'
 
 import './Dashboard.css'
 import { TabsData } from "./TabsData";
+import DragAndDrop from "../Common/DragAndDrop";
 
 const recordData = {
   name: '',
@@ -63,7 +64,7 @@ const defaultData = [
     "name": "Prince",
     "email": "prince@gmail.com",
     "schoolName": "Delhi Public school, delhi.",
-    "rewardPoint": "9000",
+    "rewardPoint": "10000",
     "id": 5,
     "image": "",
     "location": "piunjab,india"
@@ -79,6 +80,7 @@ export const Dashboard = () => {
   const [selectedId, setSelectedId] = useState('')
   const [isEdit, setIsEdit] = useState(false)
   const [values, setValue] = useState(recordData)
+  const [errors, setErrors] = useState('');
 
   const { name, email, schoolName, rewardPoint, location } = values;
 
@@ -91,21 +93,19 @@ export const Dashboard = () => {
     shallowEqual
   );
 
-  const userData = JSON.parse(localStorage.getItem('data'))
-
+  const userData = JSON.parse(localStorage.getItem('data'))?.sort((a, b) => b.rewardPoint - a.rewardPoint)?.map((item, ind) => ({ ...item, rank: ind + 1 }))
+  
   // To fetch the record
   const getRecordData = () => {
     dispatch(actions.getRecord(() => { setIsLoading(false) }));
   }
 
   useEffect(() => {
-    // setIsLoading(true)
-    // getRecordData();
-    if(JSON.parse(localStorage.getItem('data'))?.length > 0){
-      localStorage.setItem('data',localStorage.getItem('data'))
+    if (JSON.parse(localStorage.getItem('data'))?.length > 0) {
+      localStorage.setItem('data', localStorage.getItem('data'))
       return;
     }
-    localStorage.setItem('data',JSON.stringify(defaultData))
+    localStorage.setItem('data', JSON.stringify(defaultData))
     return () => { };
   }, []);
 
@@ -123,9 +123,10 @@ export const Dashboard = () => {
     getRecordData();
     setValue(recordData);
     handleModal(false, '')
+    setErrors('')
   }
 
-  // Check if any property is empty in payload/object
+  // Not in use: Check if any property is empty in payload/object
   const isEmpty = (obj) => Object.values(obj).some(value => {
     if (value == null || value == undefined || value == '') {
       return true;
@@ -133,34 +134,36 @@ export const Dashboard = () => {
     return false;
   });
 
+  const isValid = (val) => {
+    // console.log("val---------------", val);
+    const { errors, isValid } = validateAddCompanyInputs(val);
+    if (!isValid) {
+      setErrors(errors);
+    }
+    return isValid;
+  };
+
+  console.log('errors', errors)
   const handleSubmit = async () => {
-    // if (isEmpty(values)) {
-    //   alert('Please fill all the fields.')
-    //   return;
-    // }
-    // setIsLoading(true)
+    if (!isValid(values)) {
+      return;
+    }
     if (isEdit) {
-      // dispatch(actions.updateRecord(values, () => {
-      //   handleAfterSuccess()
-      // }));
       const updateData = [...JSON.parse(localStorage.getItem('data'))].map(item => {
-        if(item.id == selectedId){
-          return {...item, ...values}
+        if (item.id == selectedId) {
+          return { ...item, ...values }
         }
         return item;
       })
-      const updateLS = [...JSON.parse(localStorage.getItem('data')), {...values, id: userData?.length + 1}]
-      localStorage.setItem('data',JSON.stringify(updateData))
+      const updateLS = [...JSON.parse(localStorage.getItem('data')), { ...values, id: userData?.length + 1 }]
+      localStorage.setItem('data', JSON.stringify(updateData))
       setIsEdit(false)
       handleAfterSuccess();
       return;
     }
-    const updateLS = [...JSON.parse(localStorage.getItem('data')), {...values, id: userData?.length + 1}]
-    localStorage.setItem('data',JSON.stringify(updateLS))
+    const updateLS = [...JSON.parse(localStorage.getItem('data')), { ...values, id: userData?.length + 1 }]
+    localStorage.setItem('data', JSON.stringify(updateLS))
     handleAfterSuccess();
-    // dispatch(actions.postRecord(values, () => {
-    //   handleAfterSuccess();
-    // }));
   }
 
   // Handler for image only
@@ -184,24 +187,15 @@ export const Dashboard = () => {
   const getModal = () => {
     switch (modalType) {
       case 'addNewMember':
-        return <CommonModal title={isEdit ? "Edit Info" : "Add New Member"} show={isOpen} onClose={() => { setValue(recordData); handleModal(false, '') }} onDone={() => handleSubmit()}>
+        return <CommonModal title={isEdit ? "Edit Info" : "Add New Member"} show={isOpen} onClose={() => { setValue(recordData); handleModal(false, ''); setErrors('') }} onDone={() => handleSubmit()}>
           <Container>
             <Form>
               <Row>
                 <Col xs={12} md={12}>
-                  {/* <DragAndDrop /> */}
-
-                  <div className="image-upload">
-                    <label for="file-input">
-                      <img src={dropDownImg} /></label>
-                    <input type="file" className="" name="image" onChange={handleChangeImage} />
-                    <h6>Upload or Drag & Drop</h6>
-                    <p className="your-files"><small>your files here</small></p>
-                    <p className="file-size">Maximum upload size is 1MB</p>
-                  </div>
+                  <DragAndDrop />
                 </Col>
               </Row>
-              <Row>
+              <Row className="mt-4">
                 <Col xs={6} md={6}>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Name</Form.Label>
@@ -212,6 +206,7 @@ export const Dashboard = () => {
                       value={name}
                       onChange={handleChange}
                     />
+                    <Form.Text muted className="error-msg">{errors.name}</Form.Text>
                   </Form.Group>
                 </Col>
                 <Col xs={6} md={6}>
@@ -224,6 +219,7 @@ export const Dashboard = () => {
                       value={email}
                       onChange={handleChange}
                     />
+                    <Form.Text muted className="error-msg">{errors.email}</Form.Text>
                   </Form.Group>
                 </Col>
               </Row>
@@ -238,6 +234,7 @@ export const Dashboard = () => {
                       value={schoolName}
                       onChange={handleChange}
                     />
+                    <Form.Text muted className="error-msg">{errors.schoolName}</Form.Text>
                   </Form.Group>
                 </Col>
                 <Col xs={6} md={6}>
@@ -245,11 +242,12 @@ export const Dashboard = () => {
                     <Form.Label>Reward points</Form.Label>
                     <Form.Control
                       name="rewardPoint"
-                      type="text"
+                      type="number"
                       placeholder="Reward Points"
                       value={rewardPoint}
                       onChange={handleChange}
                     />
+                    <Form.Text muted className="error-msg">{errors.rewardPoint}</Form.Text>
                   </Form.Group>
                 </Col>
               </Row>
@@ -264,6 +262,7 @@ export const Dashboard = () => {
                       value={location}
                       onChange={handleChange}
                     />
+                    <Form.Text muted className="error-msg">{errors.location}</Form.Text>
                   </Form.Group>
                 </Col>
               </Row>
@@ -291,7 +290,7 @@ export const Dashboard = () => {
               <button className="nav-link active" id="nav-tabs-daily" data-bs-toggle="tab" data-bs-target="#tabs-1" type="button" role="tab" aria-controls="tabs-1" aria-selected="true">Daily </button>
               <button className="nav-link" id="nav-tab-weekly" data-bs-toggle="tab" data-bs-target="#tabs-2" type="button" role="tab" aria-controls="tabs-2" aria-selected="false">Weekly </button>
               <button className="nav-link" id="nav-tab-monthly" data-bs-toggle="tab" data-bs-target="#tabs-3" type="button" role="tab" aria-controls="tabs-2" aria-selected="false">Monthly </button>
-              <button className="add-btn ms-2" id="nav-tab-add" data-bs-toggle="tab" data-bs-target="#tabs-3" type="button" role="tab" aria-controls="tabs-2" aria-selected="false" onClick={() => handleModal(true, 'addNewMember')}><i class="fa fa-plus" aria-hidden="true"></i></button>
+              <button className="add-btn ms-2" id="nav-tab-add" data-bs-toggle="tab" data-bs-target="#tabs-3" type="button" role="tab" aria-controls="tabs-2" aria-selected="false" onClick={() => handleModal(true, 'addNewMember')}><i className="fa fa-plus" aria-hidden="true"></i></button>
             </div>
             <div className="tab-content" id="myTabContent">
               <div className="tab-pane fade show active" id="tabs-1" role="tabpanel" aria-labelledby="tabs-tab1">

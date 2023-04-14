@@ -10,7 +10,7 @@ const CommonModal = ({ title, show, onClose, onDone, children }) => {
             <Modal show={show} onHide={onClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>{title}</Modal.Title>
-                    <Button onClick={onClose} ><i class="fa fa-times" aria-hidden="true"></i></Button>
+                    <Button onClick={onClose} ><i className="fa fa-times" aria-hidden="true"></i></Button>
                 </Modal.Header>
                 <Modal.Body>
                     {children}

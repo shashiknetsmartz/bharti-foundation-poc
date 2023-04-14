@@ -15,9 +15,9 @@ export const TabsData = ({ onOpenEditModal, userData }) => {
                 <div className="col-md-3 col-sm-1">
                 </div>
                 {userData &&
-                    userData?.slice(0,3)?.map((data) => (
-                        <div className="col-md-2 col-sm-3">
-                            <div className={`card-outer ${data.id == 2 ? 'first' : ''}`}>
+                    userData?.filter(item => item.rank == 3).map((data) => (
+                        <div className="col-md-2 col-sm-3" key={data?.id}>
+                            <div className='card-outer'>
                                 <div className="profile-pic">
                                     <img src={ProfileImg} alt="profile-pic" />
                                 </div>
@@ -29,7 +29,49 @@ export const TabsData = ({ onOpenEditModal, userData }) => {
                                         <span>{data.rewardPoint}</span>points<span onClick={() => onOpenEditModal(data)} className="edit-info"><i className="fa fa-pencil" aria-hidden="true"></i></span></p>
                                 </div>
                                 <div className="badge">
-                                    <img src={data.id == 1 ? SecondImg : data.id == 2 ? FirstImg : ThirdImg} alt="badge" />
+                                    <img src={ThirdImg} alt="badge" />
+                                </div>
+                            </div>
+                        </div>
+
+                    ))}
+                {userData &&
+                    userData?.filter(item => item.rank == 1).map((data) => (
+                        <div className="col-md-2 col-sm-3" key={data?.id}>
+                            <div className={`card-outer ${data.rank == 1 ? 'first' : ''}`}>
+                                <div className="profile-pic">
+                                    <img src={ProfileImg} alt="profile-pic" />
+                                </div>
+                                <div className="card-content">
+                                    <h3 className="mb-0">{data.name}<img src={VerifyImg} alt="verify" /></h3>
+                                    <p>{data.email}</p>
+                                    <p>{data.location || ''}</p>
+                                    <p className="points">
+                                        <span>{data.rewardPoint}</span>points<span onClick={() => onOpenEditModal(data)} className="edit-info"><i className="fa fa-pencil" aria-hidden="true"></i></span></p>
+                                </div>
+                                <div className="badge">
+                                    <img src={FirstImg} alt="badge" />
+                                </div>
+                            </div>
+                        </div>
+
+                    ))}
+                {userData &&
+                    userData?.filter(item => item.rank == 2).map((data) => (
+                        <div className="col-md-2 col-sm-3" key={data?.id}>
+                            <div className='card-outer'>
+                                <div className="profile-pic">
+                                    <img src={ProfileImg} alt="profile-pic" />
+                                </div>
+                                <div className="card-content">
+                                    <h3 className="mb-0">{data.name}<img src={VerifyImg} alt="verify" /></h3>
+                                    <p>{data.email}</p>
+                                    <p>{data.location || ''}</p>
+                                    <p className="points">
+                                        <span>{data.rewardPoint}</span>points<span onClick={() => onOpenEditModal(data)} className="edit-info"><i className="fa fa-pencil" aria-hidden="true"></i></span></p>
+                                </div>
+                                <div className="badge">
+                                    <img src={SecondImg} alt="badge" />
                                 </div>
                             </div>
                         </div>
@@ -54,7 +96,7 @@ export const TabsData = ({ onOpenEditModal, userData }) => {
                                         <span>{data.rewardPoint}</span>points<span onClick={() => onOpenEditModal(data)} className="edit-info"><i className="fa fa-pencil" aria-hidden="true"></i></span></p>
                                 </div>
                                 <div className="cm-badge">
-                                    {data?.id}
+                                    {data?.rank}
                                 </div>
                             </div>
                         </div>

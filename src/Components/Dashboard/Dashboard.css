@@ -209,6 +209,25 @@ label.form-label {
 }
 .btn-close{display: none;}
 
+.error-msg {
+    color: red !important;
+}
+.ant-upload-list.ant-upload-list-text {
+    position: absolute;
+    top: 33%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+}
+.ant-upload.ant-upload-drag p.ant-upload-drag-icon {
+    margin-bottom: 0 !important;
+}
+.ant-upload.ant-upload-drag {
+    padding: 20px 0 !important;
+    background: #fff !important;
+    border: 2px dashed #FC9317 !important;
+    border-radius: 15px !important;
+}
 @media(min-width:991px) and (max-width:1500px) {
     .navbar .nav-link {
         font-size: 14px;

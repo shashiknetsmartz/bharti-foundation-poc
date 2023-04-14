@@ -153,11 +153,14 @@ export const Dashboard = () => {
         }
         return item;
       })
-      const updateLS = [...JSON.parse(localStorage.getItem('data')), { ...values, id: userData?.length + 1 }]
       localStorage.setItem('data', JSON.stringify(updateData))
       setIsEdit(false)
       handleAfterSuccess();
       return;
+    }
+    if([...JSON.parse(localStorage.getItem('data'))].map(item => item.email).includes(values.email)){
+      setErrors({email: 'Email already exist.'})
+      return
     }
     const updateLS = [...JSON.parse(localStorage.getItem('data')), { ...values, id: userData?.length + 1 }]
     localStorage.setItem('data', JSON.stringify(updateLS))

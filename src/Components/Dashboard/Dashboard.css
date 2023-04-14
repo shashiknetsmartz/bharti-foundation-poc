@@ -245,6 +245,10 @@ label.form-label {
     z-index: 9999 !important;
     margin-right: 24px;
 }
+
+.text-wrap {
+    word-wrap: break-word;
+}
 @media(min-width:991px) and (max-width:1500px) {
     .navbar .nav-link {
         font-size: 14px;

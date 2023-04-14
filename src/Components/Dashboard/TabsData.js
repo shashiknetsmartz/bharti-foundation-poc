@@ -22,10 +22,10 @@ export const TabsData = ({ onOpenEditModal, userData }) => {
                                     <img src={ProfileImg} alt="profile-pic" />
                                 </div>
                                 <div className="card-content">
-                                    <h3 className="mb-0">{data.name}<img src={VerifyImg} alt="verify" /></h3>
-                                    <p>{data.email}</p>
-                                    <p>{data.location || ''}</p>
-                                    <p className="points">
+                                    <h3 className="mb-0 text-wrap">{data.name}<img src={VerifyImg} alt="verify" /></h3>
+                                    <p className="text-wrap">{data.email}</p>
+                                    <p className="text-wrap">{data.location || ''}</p>
+                                    <p className="points text-wrap">
                                         <span>{data.rewardPoint}</span>points<span onClick={() => onOpenEditModal(data)} className="edit-info"><i className="fa fa-pencil" aria-hidden="true"></i></span></p>
                                 </div>
                                 <div className="badge">
@@ -43,10 +43,10 @@ export const TabsData = ({ onOpenEditModal, userData }) => {
                                     <img src={ProfileImg} alt="profile-pic" />
                                 </div>
                                 <div className="card-content">
-                                    <h3 className="mb-0">{data.name}<img src={VerifyImg} alt="verify" /></h3>
-                                    <p>{data.email}</p>
-                                    <p>{data.location || ''}</p>
-                                    <p className="points">
+                                    <h3 className="mb-0 text-wrap">{data.name}<img src={VerifyImg} alt="verify" /></h3>
+                                    <p className="text-wrap">{data.email}</p>
+                                    <p className="text-wrap">{data.location || ''}</p>
+                                    <p className="points text-wrap">
                                         <span>{data.rewardPoint}</span>points<span onClick={() => onOpenEditModal(data)} className="edit-info"><i className="fa fa-pencil" aria-hidden="true"></i></span></p>
                                 </div>
                                 <div className="badge">
@@ -64,10 +64,10 @@ export const TabsData = ({ onOpenEditModal, userData }) => {
                                     <img src={ProfileImg} alt="profile-pic" />
                                 </div>
                                 <div className="card-content">
-                                    <h3 className="mb-0">{data.name}<img src={VerifyImg} alt="verify" /></h3>
-                                    <p>{data.email}</p>
-                                    <p>{data.location || ''}</p>
-                                    <p className="points">
+                                    <h3 className="mb-0 text-wrap">{data.name}<img src={VerifyImg} alt="verify" /></h3>
+                                    <p className="text-wrap">{data.email}</p>
+                                    <p className="text-wrap">{data.location || ''}</p>
+                                    <p className="points text-wrap">
                                         <span>{data.rewardPoint}</span>points<span onClick={() => onOpenEditModal(data)} className="edit-info"><i className="fa fa-pencil" aria-hidden="true"></i></span></p>
                                 </div>
                                 <div className="badge">
@@ -89,10 +89,10 @@ export const TabsData = ({ onOpenEditModal, userData }) => {
                                     <img src={data.image || ProfileImg} alt="profile-pic" />
                                 </div>
                                 <div className="card-content">
-                                    <h3 className="mb-0">{data.name}<img src={VerifyImg} alt="verify" /></h3>
-                                    <p>{data.email}</p>
-                                    <p>{data.location || ''}</p>
-                                    <p className="points">
+                                    <h3 className="mb-0 text-wrap">{data.name}<img src={VerifyImg} alt="verify" /></h3>
+                                    <p className="text-wrap">{data.email}</p>
+                                    <p className="text-wrap">{data.location || ''}</p>
+                                    <p className="points text-wrap">
                                         <span>{data.rewardPoint}</span>points<span onClick={() => onOpenEditModal(data)} className="edit-info"><i className="fa fa-pencil" aria-hidden="true"></i></span></p>
                                 </div>
                                 <div className="cm-badge">

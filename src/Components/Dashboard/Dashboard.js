@@ -199,7 +199,7 @@ export const Dashboard = () => {
               <Row className="mt-4">
                 <Col xs={6} md={6}>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Name update</Form.Label>
+                    <Form.Label>Name</Form.Label>
                     <Form.Control
                       type="text"
                       placeholder="Name"
@@ -288,7 +288,7 @@ export const Dashboard = () => {
         <div className="container-fluid">
           <div className="row">
             <div className="nav nav-tabs" id="nav-tab" role="tablist">
-              <button className="nav-link active" id="nav-tabs-daily" data-bs-toggle="tab" data-bs-target="#tabs-1" type="button" role="tab" aria-controls="tabs-1" aria-selected="true">Daily </button>
+              <button className="nav-link active" id="nav-tabs-daily" data-bs-toggle="tab" data-bs-target="#tabs-1" type="button" role="tab" aria-controls="tabs-1" aria-selected="true">Daily update</button>
               <button className="nav-link" id="nav-tab-weekly" data-bs-toggle="tab" data-bs-target="#tabs-2" type="button" role="tab" aria-controls="tabs-2" aria-selected="false">Weekly </button>
               <button className="nav-link" id="nav-tab-monthly" data-bs-toggle="tab" data-bs-target="#tabs-3" type="button" role="tab" aria-controls="tabs-2" aria-selected="false">Monthly </button>
               <button className="add-btn ms-2" id="nav-tab-add" data-bs-toggle="tab" data-bs-target="#tabs-3" type="button" role="tab" aria-controls="tabs-2" aria-selected="false" onClick={() => handleModal(true, 'addNewMember')}><i className="fa fa-plus" aria-hidden="true"></i></button>

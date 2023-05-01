@@ -277,7 +277,7 @@ export const Dashboard = () => {
   }
 
   const handleModal = (isOpen, modalType) => {
-    console.log("abcdefg")
+    console.log("abcdefgh")
     setModalType(modalType);
     setIsOpen(isOpen)
   }

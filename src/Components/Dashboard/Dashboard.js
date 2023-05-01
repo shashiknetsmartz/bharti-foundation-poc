@@ -199,7 +199,7 @@ export const Dashboard = () => {
               <Row className="mt-4">
                 <Col xs={6} md={6}>
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Name</Form.Label>
+                    <Form.Label>Name update</Form.Label>
                     <Form.Control
                       type="text"
                       placeholder="Name"

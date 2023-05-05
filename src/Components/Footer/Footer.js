@@ -7,7 +7,7 @@ export const Footer = () => {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-12">
-                        <p className="mb-0">© Worldwide Copyright Reserved. Bharti Foundation</p>
+                        <p className="mb-0">© Worldwide Copyright Reserved.</p>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import Logo from '../../assets/images/logo.svg'
 import CoursesImg from '../../assets/images/courses.svg'
 import PodcastImg from '../../assets/images/podcast.svg'
 import ContestImg from '../../assets/images/contest.svg'
@@ -19,7 +18,7 @@ export const Header = () => {
             <div className="container-fluid">
                 <div className="row">
                     <nav className="navbar navbar-expand-lg navbar-light bg-light px-4">
-                        <a className="navbar-brand" href="#"><img src={Logo} alt="logo"/></a>
+                        <a className="navbar-brand" href="#"><img src="" alt="logo"/></a>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
